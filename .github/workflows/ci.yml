@@ -1,6 +1,7 @@
+
 name: CI
-defaults:
-  on:
+
+'on':
   workflow_dispatch:
   push:
     branches: [main]
@@ -23,7 +24,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: "21"
-          distribution: "temurin"
+          distribution: temurin
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -38,7 +39,7 @@ jobs:
         run: ./gradlew test
 
       - name: Upload APK
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: debug-apk
